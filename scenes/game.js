@@ -10,14 +10,22 @@ export class GameScene extends Phaser.Scene {
         super("GameScene");
     }
 
-    preload() { //Fazer carregamento de imagens
+    preload() { //Fazer carregamento de imagens, sprite e áudio
         this.load.image('paisagem', '../assets/paisagem.png');
         this.load.image('plataforma', '../assets/plataforma.png');
         this.load.image('personagem_frente', '../assets/personagem_frente.png');
-        this.load.spritesheet("grace_sprite", "../assets/spritesheetGrace.png", { frameWidth: 64, frameHeight: 64 })
+        this.load.spritesheet("grace_sprite", "../assets/spritesheetGrace.png", { frameWidth: 64, frameHeight: 64 });
+        this.load.audio("musicaFundo", "../assets/musica.mp3");
     }
 
     create() { //Criar elementos da tela do jogo
+
+        //Adicionar música
+        this.musica = this.sound.add("musicaFundo");
+        this.musica.play({
+            loop: true,  
+            volume: 1 
+        });
 
         //Adicionar background
         this.add.image(this.larguraJogo/2, this.alturaJogo/2, 'paisagem').setScale(0.6);
