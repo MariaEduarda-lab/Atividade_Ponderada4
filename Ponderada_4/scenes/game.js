@@ -1,26 +1,32 @@
+//Criar classe "GameScene"
 export class GameScene extends Phaser.Scene {
 
+    //Definir dimensões do  jogo
     alturaJogo = 600;
     larguraJogo = 800;
-    plataformas = [];
+    plataformas = []; //Acrescentar array de plataformas para utilizá-las de maneira dinâmica
 
     constructor() {
         super("GameScene");
     }
 
-    preload() {
+    preload() { //Fazer carregamento de imagens
         this.load.image('paisagem', '../assets/paisagem.png');
         this.load.image('plataforma', '../assets/plataforma.png');
         this.load.image('personagem_frente', '../assets/personagem_frente.png');
     }
 
-    create() {
+    create() { //Criar elementos da tela do jogo
+
+        //Adicionar background
         this.add.image(this.larguraJogo/2, this.alturaJogo/2, 'paisagem').setScale(0.6);
 
+        //Adicionar player, dimensão e marcação de colisão
         this.player = this.physics.add.sprite(this.larguraJogo/2, 100, 'personagem_frente').setScale(0.4);
         this.player.body.setSize(151, 195, true);
         this.player.setCollideWorldBounds(true);
 
+        //Adicionar plataformas 1 e 2, dimensão e marcação de colisão
         this.plataformas[0] = this.physics.add.staticImage(200, 450, 'plataforma');
         this.plataformas[0].body.setSize(148, 44, true);
         this.plataformas[0].setScale(0.3);
@@ -29,10 +35,12 @@ export class GameScene extends Phaser.Scene {
         this.plataformas[1].body.setSize(148, 44, true);
         this.plataformas[1].setScale(0.3);
 
+        //Adicionar colisão das plataformas do array, começando pela 0
         for (let i = 0; i < this.plataformas.length; i++){
             this.physics.add.collider(this.player, this.plataformas[i]);
         }
 
+        //Adicionar os controles do teclado
         this.cursors = this.input.keyboard.createCursorKeys();
 
         }
