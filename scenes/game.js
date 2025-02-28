@@ -137,5 +137,9 @@ export class GameScene extends Phaser.Scene {
             this.player.setVelocityY(400); // Acelera a descida 
         }
 
+        if (this.pontuacao >= 5){
+            this.scene.stop('GameScene');
+            this.scene.start('EndScene', "ganhou");
+        }
     }
 }
