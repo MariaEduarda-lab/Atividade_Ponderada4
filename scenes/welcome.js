@@ -8,11 +8,11 @@ export class WelcomeScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("fazenda", "../assets/background_fazenda.png");
-        this.load.image("mg", "../assets/background_mg.png");
-        this.load.image("ajude", "../assets/ajude.png");
-        this.load.image("caca", "../assets/caca.png");
-        this.load.image("play", "../assets/botao_play.png");
+        this.load.image("fazenda", "assets/background_fazenda.png");
+        this.load.image("mg", "assets/background_mg.png");
+        this.load.image("ajude", "assets/ajude.png");
+        this.load.image("caca", "assets/caca.png");
+        this.load.image("play", "assets/botao_play.png");
     }
 
     create() {
