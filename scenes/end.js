@@ -12,11 +12,11 @@ export class EndScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("ganhou", "../assets/ganhou.png");
-        this.load.image("menu", "../assets/botao_menu.png");
-        this.load.image("restart", "../assets/botao_restart.png");
-        this.load.image("fim", "../assets/fim.png");
-        this.load.image("tiao", "../assets/tiao.png");
+        this.load.image("ganhou", "assets/ganhou.png");
+        this.load.image("menu", "assets/botao_menu.png");
+        this.load.image("restart", "assets/botao_restart.png");
+        this.load.image("fim", "assets/fim.png");
+        this.load.image("tiao", "assets/tiao.png");
 
         this.load.audio("musicaRoca", "../assets/musica.mp3"); // Se necessário, carregue o áudio aqui
     }

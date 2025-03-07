@@ -11,11 +11,11 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload() { //Fazer carregamento de imagens, sprite e áudio
-        this.load.image('mg', '../assets/background_mg.png');
-        this.load.image('plataforma', '../assets/plataforma.png');
-        this.load.spritesheet("fazendeiro", "../assets/fazendeiro_sprite.png", { frameWidth: 463.5, frameHeight: 480});
-        this.load.audio("musicaRoca", "../assets/musicaRoca.mp3");
-        this.load.image('queijin', '../assets/queijin.png');
+        this.load.image('mg', 'assets/background_mg.png');
+        this.load.image('plataforma', 'assets/plataforma.png');
+        this.load.spritesheet("fazendeiro", "assets/fazendeiro_sprite.png", { frameWidth: 463.5, frameHeight: 480});
+        this.load.audio("musicaRoca", "assets/musicaRoca.mp3");
+        this.load.image('queijin', 'assets/queijin.png');
     }
 
     create() { //Criar elementos da tela do jogo
