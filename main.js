@@ -7,7 +7,7 @@ const config = {
     type: Phaser.AUTO,
     width: 800,
     height: 600,
-    backgroundColor: "#c1a0e0",
+    backgroundColor: "#FFFFFF",
     pixelArt: true,
     roundPixel: false,
     scale: {

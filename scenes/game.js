@@ -11,12 +11,11 @@ export class GameScene extends Phaser.Scene {
     }
 
     preload() { //Fazer carregamento de imagens, sprite e áudio
-        this.load.image('paisagem', '../assets/paisagem.png');
+        this.load.image('mg', '../assets/background_mg.png');
         this.load.image('plataforma', '../assets/plataforma.png');
-        this.load.image('personagem_frente', '../assets/personagem_frente.png');
-        this.load.spritesheet("grace_sprite", "../assets/spritesheetGrace.png", { frameWidth: 64, frameHeight: 64 });
-        this.load.audio("musicaFundo", "../assets/musica.mp3");
-        this.load.image('bug', '../assets/bug.png');
+        this.load.spritesheet("fazendeiro", "../assets/fazendeiro_sprite.png", { frameWidth: 463.5, frameHeight: 480});
+        this.load.audio("musicaRoca", "../assets/musicaRoca.mp3");
+        this.load.image('queijin', '../assets/queijin.png');
     }
 
     create() { //Criar elementos da tela do jogo
@@ -25,29 +24,29 @@ export class GameScene extends Phaser.Scene {
         this.pontuacao = 0;
 
         //Adicionar música
-        this.musica = this.sound.add("musicaFundo");
+        this.musica = this.sound.add("musicaRoca");
         this.musica.play({
             loop: true,  
             volume: 1 
         });
 
         //Adicionar background
-        this.add.image(this.larguraJogo/2, this.alturaJogo/2, 'paisagem').setScale(0.6);
+        this.add.image(this.larguraJogo/2, this.alturaJogo/2, 'mg').setScale(0.5);
 
         //Adicionar sprite da personagem
-        this.player = this.physics.add.sprite(this.larguraJogo/2, 100, 'grace_sprite').setScale(1.3);
+        this.player = this.physics.add.sprite(this.larguraJogo/2, 100, 'fazendeiro').setScale(0.2);
         // this.player.body.setSize(151, 195, true);
         this.player.setCollideWorldBounds(true);
 
 
         //Adicionar plataformas 1 e 2, dimensão e marcação de colisão
         this.plataformas[0] = this.physics.add.staticImage(200, 450, 'plataforma');
-        this.plataformas[0].body.setSize(148, 44, true);
-        this.plataformas[0].setScale(0.3);
+        this.plataformas[0].body.setSize(150, 100, true);
+        this.plataformas[0].setScale(0.5);
 
         this.plataformas[1] = this.physics.add.staticImage(580, 360, 'plataforma');
-        this.plataformas[1].body.setSize(148, 44, true);
-        this.plataformas[1].setScale(0.3);
+        this.plataformas[1].body.setSize(150, 100, true);
+        this.plataformas[1].setScale(0.5);
 
         //Adicionar colisão das plataformas do array, começando pela 0
         for (let i = 0; i < this.plataformas.length; i++){
@@ -60,49 +59,49 @@ export class GameScene extends Phaser.Scene {
         //Adicionar placar 
         this.placar = this.add.text(50, 50, 'Pontuacao:' + this.pontuacao, {fontSize:'45px', fill:'#495613'});
 
-        //Adicionar o bug / mariposa
-        this.bug = this.physics.add.sprite(this.larguraJogo/3, 0, 'bug');
-        this.bug.setCollideWorldBounds(true); // "borda no mundo"
-        this.bug.setScale(0.3);
-        this.physics.add.collider(this.bug, this.plataformas[0]); // faz com que o bug n consiga se sobrepor a plataforma
-        this.physics.add.collider(this.bug, this.plataformas[1]);
+        //Adicionar o queijin
+        this.queijin = this.physics.add.sprite(this.larguraJogo/3, 0, 'queijin');
+        this.queijin.setCollideWorldBounds(true).setSize(400, 400); // "borda no mundo"
+        this.queijin.setScale(0.13);
+        this.physics.add.collider(this.queijin, this.plataformas[0]); // faz com que o queijin n consiga se sobrepor a plataforma
+        this.physics.add.collider(this.queijin, this.plataformas[1]);
 
 
-        //Qando o player encostar no bug
-        this.physics.add.overlap(this.player, this.bug, () => { 
+        //Qando o player encostar no queijin
+        this.physics.add.overlap(this.player, this.queijin, () => { 
 
-            this.bug.setVisible(false); //o bug fica invisível
+            this.queijin.setVisible(false); //o queijin fica invisível
 
             //Número sorteado entre 50 e 650
-            var posicaoBug_Y = Phaser.Math.RND.between(50, 650);
-            //Ajustar a posição do bug de acordo com o número sorteado
-            this.bug.setPosition(posicaoBug_Y, 100); 
+            var posicaoQueijin_Y = Phaser.Math.RND.between(50, 650);
+            //Ajustar a posição do queijin de acordo com o número sorteado
+            this.queijin.setPosition(posicaoQueijin_Y, 100); 
 
             this.pontuacao += 1; //Somar pontuação
             this.placar.setText('Pontuacao: ' + this.pontuacao); //atualiza o placar
 
-            this.bug.setVisible(true); //Tornar o bug visível
+            this.queijin.setVisible(true); //Tornar o queijin visível
 
         });
 
         //Animações da personagem
         this.anims.create({
             key: 'direita',
-            frames: this.anims.generateFrameNumbers('grace_sprite', { start: 5, end: 8 }),
+            frames: this.anims.generateFrameNumbers('fazendeiro', { start: 1, end: 6 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'esquerda',
-            frames: this.anims.generateFrameNumbers('grace_sprite', { start: 0, end: 3 }),
+            frames: this.anims.generateFrameNumbers('fazendeiro', { start: 7, end: 12 }),
             frameRate: 10,
             repeat: -1
         });
 
         this.anims.create({
             key: 'parada',
-            frames: [{ key: 'grace_sprite', frame: 4 }],
+            frames: [{ key: 'fazendeiro', frame: 0 }],
             frameRate: 20
         });
 

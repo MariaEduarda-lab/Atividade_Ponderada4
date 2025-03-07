@@ -8,20 +8,18 @@ export class WelcomeScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("paisagem", "../assets/paisagem.png");
-        this.load.image("computador", "../assets/computador_paisagem.png");
-        this.load.image("grace", "../assets/grace.png");
-        this.load.image("descricao", "../assets/decricao.png");
-        this.load.image("titulo", "../assets/grace_quest.png");
+        this.load.image("fazenda", "../assets/background_fazenda.png");
+        this.load.image("mg", "../assets/background_mg.png");
+        this.load.image("ajude", "../assets/ajude.png");
+        this.load.image("caca", "../assets/caca.png");
         this.load.image("play", "../assets/botao_play.png");
     }
 
     create() {
-        this.add.image(this.larguraJogo/2, this.alturaJogo/2, "computador");
-        this.add.image(this.larguraJogo/2, 130, "titulo").setScale(0.25);
-        this.add.image(this.larguraJogo/2, 205, "grace").setScale(0.15);
-        this.add.image(this.larguraJogo/2, 350, "descricao").setScale(0.4);
-        this.botaoJogar = this.add.image(this.larguraJogo/2, 290, "play").setScale(0.2).setInteractive();
+        this.add.image(this.larguraJogo/2, this.alturaJogo/2, "fazenda").setScale(0.3);
+        this.add.image(this.larguraJogo/2, 80, "caca").setScale(1);
+        this.add.image(this.larguraJogo/2, 180, "ajude").setScale(0.4);
+        this.botaoJogar = this.add.image(this.larguraJogo/2, 450, "play").setScale(0.9).setInteractive();
 
         this.botaoJogar.on("pointerover", () => {
             this.input.setDefaultCursor("pointer");
