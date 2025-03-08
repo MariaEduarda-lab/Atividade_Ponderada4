@@ -56,7 +56,7 @@ export class GameScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         // Adicionar placar 
-        this.placar = this.add.text(50, 50, 'Pontuacao:' + this.pontuacao, {fontSize:'45px', fill:'#495613'});
+        this.placar = this.add.text(50, 50, 'Pontuação:' + this.pontuacao, {fontSize:'45px', fill:'#495613'});
 
         // Adicionar o queijin
         this.queijin = this.physics.add.sprite(this.larguraJogo/3, 0, 'queijin');
