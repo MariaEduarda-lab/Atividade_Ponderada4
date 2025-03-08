@@ -1,13 +1,13 @@
-//Criar classe "GameScene"
+// Criar classe "GameScene"
 export class GameScene extends Phaser.Scene {
 
     //Definir dimensões do  jogo
     alturaJogo = 600;
     larguraJogo = 800;
-    plataformas = []; //Acrescentar array de plataformas para utilizá-las de maneira dinâmica
+    plataformas = []; // Acrescentar array de plataformas para utilizá-las de maneira dinâmica
 
     constructor() {
-        super("GameScene");
+        super("GameScene"); // Criar "chave de comando" para essa cena, para fazer integralçao de telas
     }
 
     preload() { //Fazer carregamento de imagens, sprite e áudio
@@ -33,13 +33,12 @@ export class GameScene extends Phaser.Scene {
         //Adicionar background
         this.add.image(this.larguraJogo/2, this.alturaJogo/2, 'mg').setScale(0.5);
 
-        //Adicionar sprite da personagem
+        // Adicionar sprite da personagem
         this.player = this.physics.add.sprite(this.larguraJogo/2, 100, 'fazendeiro').setScale(0.2);
-        // this.player.body.setSize(151, 195, true);
         this.player.setCollideWorldBounds(true);
 
 
-        //Adicionar plataformas 1 e 2, dimensão e marcação de colisão
+        // Adicionar plataformas 1 e 2, dimensão e marcação de colisão
         this.plataformas[0] = this.physics.add.staticImage(200, 450, 'plataforma');
         this.plataformas[0].body.setSize(150, 100, true);
         this.plataformas[0].setScale(0.5);
@@ -48,18 +47,18 @@ export class GameScene extends Phaser.Scene {
         this.plataformas[1].body.setSize(150, 100, true);
         this.plataformas[1].setScale(0.5);
 
-        //Adicionar colisão das plataformas do array, começando pela 0
+        // Adicionar colisão das plataformas do array, começando pela 0
         for (let i = 0; i < this.plataformas.length; i++){
             this.physics.add.collider(this.player, this.plataformas[i]);
         }
 
-        //Adicionar os controles do teclado
+        // Adicionar os controles do teclado
         this.cursors = this.input.keyboard.createCursorKeys();
 
-        //Adicionar placar 
+        // Adicionar placar 
         this.placar = this.add.text(50, 50, 'Pontuacao:' + this.pontuacao, {fontSize:'45px', fill:'#495613'});
 
-        //Adicionar o queijin
+        // Adicionar o queijin
         this.queijin = this.physics.add.sprite(this.larguraJogo/3, 0, 'queijin');
         this.queijin.setCollideWorldBounds(true).setSize(400, 400); // "borda no mundo"
         this.queijin.setScale(0.13);
@@ -67,24 +66,24 @@ export class GameScene extends Phaser.Scene {
         this.physics.add.collider(this.queijin, this.plataformas[1]);
 
 
-        //Qando o player encostar no queijin
+        // Quando o player encostar no queijin
         this.physics.add.overlap(this.player, this.queijin, () => { 
 
             this.queijin.setVisible(false); //o queijin fica invisível
 
-            //Número sorteado entre 50 e 650
+            // Número sorteado entre 50 e 650
             var posicaoQueijin_Y = Phaser.Math.RND.between(50, 650);
-            //Ajustar a posição do queijin de acordo com o número sorteado
+            // Ajustar a posição do queijin de acordo com o número sorteado
             this.queijin.setPosition(posicaoQueijin_Y, 100); 
 
             this.pontuacao += 1; //Somar pontuação
-            this.placar.setText('Pontuacao: ' + this.pontuacao); //atualiza o placar
+            this.placar.setText('Pontuacao: ' + this.pontuacao); // Atualizar o placar
 
-            this.queijin.setVisible(true); //Tornar o queijin visível
+            this.queijin.setVisible(true); // Tornar o queijin visível
 
         });
 
-        //Animações da personagem
+        // Animações da personagem
         this.anims.create({
             key: 'direita',
             frames: this.anims.generateFrameNumbers('fazendeiro', { start: 1, end: 6 }),
@@ -110,6 +109,7 @@ export class GameScene extends Phaser.Scene {
 
     update() {
 
+        //Criar atualizações contínuas para movimentação do personagem
         if (this.cursors.left.isDown) {
             this.player.setVelocityX(-160);
             if (this.player.anims.currentAnim?.key !== 'esquerda') {
@@ -128,7 +128,7 @@ export class GameScene extends Phaser.Scene {
         }
 
         // Lógica de pulo (vertical) 
-        if (this.cursors.up.isDown) { // && (this.player.body.touching.down || this.player.body.blocked.down)
+        if (this.cursors.up.isDown) { 
             this.player.setVelocityY(-400);
         }
 
@@ -136,7 +136,7 @@ export class GameScene extends Phaser.Scene {
             this.player.setVelocityY(400); // Acelera a descida 
         }
 
-        if (this.pontuacao >= 5){
+        if (this.pontuacao >= 5){ // Caso a pontuação atinja 5, ocorre a troca de cena
             this.scene.stop('GameScene');
             this.scene.start('EndScene', "ganhou");
         }
