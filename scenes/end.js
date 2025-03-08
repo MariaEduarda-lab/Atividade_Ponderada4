@@ -17,11 +17,12 @@ export class EndScene extends Phaser.Scene {
         this.load.image("restart", "assets/botao_restart.png");
         this.load.image("fim", "assets/fim.png");
         this.load.image("tiao", "assets/tiao.png");
-
-        this.load.audio("musicaRoca", "../assets/musica.mp3"); // Se necessário, carregue o áudio aqui
+       
+        this.load.audio("musicaRoca", "../assets/musica.mp3"); 
     }
 
     create() {
+        
         this.add.image(this.larguraJogo / 2, this.alturaJogo / 2, 'fim').setScale(1.3);
         this.add.image(this.larguraJogo / 2 - 200, this.alturaJogo / 2 + 100, 'tiao').setScale(1);
         this.add.image(300, 100, "ganhou").setScale(0.7);
