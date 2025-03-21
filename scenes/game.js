@@ -16,9 +16,33 @@ export class GameScene extends Phaser.Scene {
         this.load.spritesheet("fazendeiro", "assets/fazendeiro_sprite.png", { frameWidth: 463.5, frameHeight: 480});
         this.load.audio("musicaRoca", "assets/musicaRoca.mp3");
         this.load.image('queijin', 'assets/queijin.png');
+        this.load.image("fazendinha", "assets/fazendinha2.jpg" )
     }
 
-    create() { //Criar elementos da tela do jogo
+    create() { 
+
+        const config = { //Criar elementos da tela do jogo para conseguir colocar a consicional a partir de configurações
+            type: Phaser.AUTO,
+            width: 800,
+            height: 600,
+            backgroundColor: "#FFFFFF",
+            pixelArt: true,
+            roundPixel: false,
+        
+            scale: {
+                mode: Phaser.Scale.FIT,
+                autoCenter: Phaser.Scale.CENTER_BOTH
+            },
+            physics: {
+                default: "arcade",
+                arcade: {
+                    gravity: { y: 400 },
+                    debug: true
+                }
+            }
+            };
+
+        const game = new Phaser.Game(config);
 
         //Criar variável pontuação
         this.pontuacao = 0;
@@ -30,8 +54,13 @@ export class GameScene extends Phaser.Scene {
             volume: 1 
         });
 
-        //Adicionar background
-        this.add.image(this.larguraJogo/2, this.alturaJogo/2, 'mg').setScale(0.5);
+
+        //verifica orientação do dispositivo
+        if(game.scale.orientation === Phaser.Scale.LANDSCAPE){
+            this.add.image(this.larguraJogo/2, this.alturaJogo/2, 'mg').setScale(0.5);
+        } else if(game.scale.orientation === Phaser.Scale.PORTRAIT){
+            this.add.image(this.larguraJogo/2, this.alturaJogo/2, 'fazendinha').setScale(4);
+        }
 
         // Adicionar sprite da personagem
         this.player = this.physics.add.sprite(this.larguraJogo/2, 100, 'fazendeiro').setScale(0.2);
